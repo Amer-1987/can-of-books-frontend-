@@ -1,7 +1,15 @@
 import React from 'react';
 import Header from './Header';
-import IsLoadingAndError from './IsLoadingAndError';
 import Footer from './Footer';
+
+import IsLoadingAndError from './IsLoadingAndError';
+import LoginButton from './LoginButton';
+import LogoutButton from './LogoutButton';
+import Profile from './Profile';
+import BestBooks from './BestBooks';
+
+
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,19 +20,33 @@ class App extends React.Component {
 
   render() {
     console.log('app', this.props);
-    return(
+    return (
       <>
         <Router>
-          <IsLoadingAndError>
-            <Header />
-            <Switch>
-              <Route exact path="/">
-                {/* TODO: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
+          {/* <IsLoadingAndError> */}
+          <Header />
+          <LoginButton />
+          <LogoutButton />
+
+
+
+          <Switch>
+            <Route exact path="/">
+              {/* TODO: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
+              <BestBooks />
+
+            </Route>
+
+
+            {/* TODO: add a route with a path of '/profile' that renders a `Profile` component */}
+            <Route  path="/Profile">
+            <Profile/>
+               
               </Route>
-              {/* TODO: add a route with a path of '/profile' that renders a `Profile` component */}
-            </Switch>
-            <Footer />
-          </IsLoadingAndError>
+
+          </Switch>
+          <Footer />
+          {/* </IsLoadingAndError> */}
         </Router>
       </>
     );
