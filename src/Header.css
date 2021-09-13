@@ -1,7 +1,11 @@
 a{
+
+  padding-right:  10%;
+  padding-left:  10%;
   color:#fff;
 }
 
 a:hover{
   color:darkgrey;
+
 }
