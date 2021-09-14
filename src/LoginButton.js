@@ -18,7 +18,7 @@ function LoginButton() {
         Click Below to Log In :
       </Card.Text>
     <Card.Body>
-    <button onClick={loginWithRedirect}>Log in</button>
+    <Button onClick={loginWithRedirect}>Log in</Button>
     </Card.Body>
     </Card>
   );
