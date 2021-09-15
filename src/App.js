@@ -5,9 +5,10 @@ import Footer from './Footer';
 // import IsLoadingAndError from './IsLoadingAndError';
 
 import Profile from './Profile';
-// import BestBooks from './BestBooks';
+import Module from './Module';
 import MyFavoriteBooks from './BestBooks'
 import { withAuth0 } from '@auth0/auth0-react';
+import Login from './Login';
 
 
 
@@ -28,13 +29,15 @@ class App extends React.Component {
         <Router>
           {/* <IsLoadingAndError> */}
           <Header />
-         
+
           <Switch>
             <Route exact path="/">
               {/* TODO: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
-              {/* <BestBooks /> */}
+
               {isAuthenticated ? <MyFavoriteBooks />
-                : <login/>   }
+                : <Login />}
+
+             
 
             </Route>
 
@@ -45,7 +48,7 @@ class App extends React.Component {
 
             </Route>
 
-           
+
 
           </Switch>
           <Footer />
