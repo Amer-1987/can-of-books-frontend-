@@ -3,14 +3,14 @@ import React from 'react';
 // import Card from 'react-bootstrap/Card';
 import './LoginButton.css';
 import LoginButton from './LoginButton';
-import Header from './Header'
+
 
 
 class Login extends React.Component {
   render() {
     return (
       <>
-      <Header/>
+      
  <LoginButton/>
         {/* <Card style={{ width: '18rem' }}>
           <Card.Body>
