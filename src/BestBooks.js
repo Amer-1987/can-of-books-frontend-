@@ -6,7 +6,7 @@ import axios from 'axios';
 import BookData from './bookData.js';
 
 import { withAuth0 } from '@auth0/auth0-react';
-
+import UpdateForm from './UpdateForm';
 import Module from './Module';
 
 import Form from 'react-bootstrap/Form'
@@ -18,6 +18,12 @@ class MyFavoriteBooks extends React.Component {
     super(props);
     this.state = {
       bookArray: [],
+      showFlag: false,
+      title: '',
+      description: '',
+      status: '',
+      email: '',
+      bookId: '',
     }
   }
 
@@ -52,8 +58,8 @@ class MyFavoriteBooks extends React.Component {
     const email = this.props.auth0.user.email;
     const obj = {
       title: event.target.title.value,
-      // description: event.target.description.value,
-      // status: event.target.status.value,     
+      description: event.target.description.value,
+      status: event.target.status.value,     
       email: email,
     }
     axios
@@ -86,21 +92,66 @@ class MyFavoriteBooks extends React.Component {
       })
   }
 
+  handleClose = () => {
+
+    this.setState({
+      showFlag: false,
+
+    })
+  }
+
+  showUpdateForm = (item) => {
+    this.setState({
+      showFlag: true,
+      title: item.title,
+      description: item.description,
+      status: item.status,
+      email: item.email,
+      bookId: item._id,
+
+    })
+  }
+
+  updateBook = (event) => {
+    event.preventDefault();
+    const email = this.props.auth0.user.email;
+
+    const obj = {
+      title: event.target.title.value,
+      description: event.target.description.value,
+      status: event.target.status.value,
+      email: email,
+      
+    }
+    axios
+    .put(`http://localhost:3080/updateBook/${this.state.bookId}`, obj)
+    .then(result => {
+      this.setState({
+        bookArray: result.data,
+      })
+    })
+    .catch(error => {
+      console.log(' ERROR in updating book');
+    })
+    console.log(obj);
+
+  }
+
 
   render() {
     return (
       <>
-          <form onSubmit={this.addBook}>
-            <fieldset>
+        <form onSubmit={this.addBook}>
+          <fieldset>
             <legend>Add Book: </legend>
             <input type='text' name='title' placeholder='Book Name' />
             <input type='text' name='description' placeholder='Description' />
             <input type='text' name='status' placeholder='Status' />
             <input type='text' name='email' placeholder='Email' />
-              <button type='submit'>Add</button>
+            <button type='submit'>Add</button>
 
-             </fieldset>
-            </form> 
+          </fieldset>
+        </form>
 
         {/* <Form onSubmit={this.props.addBook}>
           <fieldset>
@@ -141,31 +192,34 @@ class MyFavoriteBooks extends React.Component {
         </Form> */}
 
 
-        {/* <h1> My favorite Books</h1>
-        <form onSubmit={this.addBook}>
-          <fieldset>
-            <legend>Add Book: </legend>
-            <input type='text' name='title' placeholder='Book Name' />
-            <input type='text' name='description' placeholder='Description' />
-            <input type='text' name='status' placeholder='Status' />
-            <input type='text' name='email' placeholder='Email' />
-            <button type='submit'>Add</button>
+        {/* <Module /> */}
 
-          </fieldset>
-        </form> */}
-
-
-        <Module />
         <p>
           This is a collection of my favorite books
         </p>
-        {console.log(this.state.bookArray)}
 
-        <BookData
-          Book={this.state.bookArray}
-          deleteBook={this.deleteBook}
+        {
+          this.state.bookArray.map(item => {
+            return (
+              <BookData
+                item={item}
+                deleteBook={this.deleteBook}
+                showUpdateForm={this.showUpdateForm}
+
+              />
+            )
+          })
+        }
+
+
+        <UpdateForm
+          show={this.state.showFlag}
+          handleClose={this.handleClose}
+          title={this.state.title}
+          description={this.state.description}
+          status={this.state.status}
+          email={this.state.email}
         />
-
 
       </>
     )
