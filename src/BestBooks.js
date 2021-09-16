@@ -7,10 +7,10 @@ import BookData from './bookData.js';
 
 import { withAuth0 } from '@auth0/auth0-react';
 import UpdateForm from './UpdateForm';
-import Module from './Module';
+// import Module from './Module';
 
-import Form from 'react-bootstrap/Form'
-import { Col, Button } from "react-bootstrap";
+// import Form from 'react-bootstrap/Form'
+// import { Col, Button } from "react-bootstrap";
 
 
 class MyFavoriteBooks extends React.Component {

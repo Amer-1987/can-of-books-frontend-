@@ -9,12 +9,9 @@ class bookData extends React.Component {
   render() {
     return (
       <>
-        <button onClick={() => this.props.addBook} >Add Book</button>
 
         <Card style={{ width: '18rem' }}>
           <Card.Body>
-
-
             <>
               <Card.Text>
 
