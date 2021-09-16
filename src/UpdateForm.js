@@ -4,6 +4,11 @@ import Button from '@restart/ui/esm/Button';
 import Form from 'react-bootstrap/Form';
 
 class UpdateForm extends Component {
+
+update=(event)=>{
+    this.props.updateBook(event)
+}
+
     render() {
         return (
             <>
@@ -12,7 +17,7 @@ class UpdateForm extends Component {
                         <Modal.Title>Update Book</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form onSubmit={this.props.updateBook} >
+                        <Form onSubmit={this.update} >
 
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Title of Book</Form.Label>

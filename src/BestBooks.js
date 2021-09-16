@@ -38,7 +38,7 @@ class MyFavoriteBooks extends React.Component {
 
 
     axios
-      .get(`http://localhost:3080/getBook?email=${email}`)
+      .get(`${process.env.REACT_APP_BACKENDURL}/getBook?email=${email}`)
       .then(result => {
         // console.log(result.data);
         this.setState({
@@ -63,7 +63,7 @@ class MyFavoriteBooks extends React.Component {
       email: email,
     }
     axios
-      .post(`http://localhost:3080/addBook`, obj)
+      .post(`${process.env.REACT_APP_BACKENDURL}/addBook`, obj)
       .then(result => {
         this.setState({
           bookArray: result.data,
@@ -81,7 +81,7 @@ class MyFavoriteBooks extends React.Component {
     const email = this.props.auth0.user.email;
 
     axios
-      .delete(`http://localhost:3080/deleteBook/${id}?email=${email}`)
+      .delete(`${process.env.REACT_APP_BACKENDURL}/deleteBook/${id}?email=${email}`)
       .then(result => {
         this.setState({
           bookArray: result.data,
@@ -124,10 +124,11 @@ class MyFavoriteBooks extends React.Component {
       
     }
     axios
-    .put(`http://localhost:3080/updateBook/${this.state.bookId}`, obj)
+    .put(`${process.env.REACT_APP_BACKENDURL}/updateBook/${this.state.bookId}`, obj)
     .then(result => {
       this.setState({
         bookArray: result.data,
+        showFlag: false,
       })
     })
     .catch(error => {
@@ -215,6 +216,7 @@ class MyFavoriteBooks extends React.Component {
         <UpdateForm
           show={this.state.showFlag}
           handleClose={this.handleClose}
+          updateBook={this.updateBook}
           title={this.state.title}
           description={this.state.description}
           status={this.state.status}
