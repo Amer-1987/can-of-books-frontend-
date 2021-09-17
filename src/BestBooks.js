@@ -7,7 +7,10 @@ import BookData from './bookData.js';
 
 import { withAuth0 } from '@auth0/auth0-react';
 import UpdateForm from './UpdateForm';
-// import Module from './Module';
+import AddForm from './AddForm';
+import Card from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
+import  './bookData.css';
 
 // import Form from 'react-bootstrap/Form'
 // import { Col, Button } from "react-bootstrap";
@@ -24,6 +27,7 @@ class MyFavoriteBooks extends React.Component {
       status: '',
       email: '',
       bookId: '',
+      showFlag2: false,
     }
   }
 
@@ -59,7 +63,7 @@ class MyFavoriteBooks extends React.Component {
     const obj = {
       title: event.target.title.value,
       description: event.target.description.value,
-      status: event.target.status.value,     
+      status: event.target.status.value,
       email: email,
     }
     axios
@@ -67,6 +71,7 @@ class MyFavoriteBooks extends React.Component {
       .then(result => {
         this.setState({
           bookArray: result.data,
+          showFlag2: false,
         })
       })
       .catch(error => {
@@ -100,6 +105,14 @@ class MyFavoriteBooks extends React.Component {
     })
   }
 
+  handleClose2 = () => {
+
+    this.setState({
+      showFlag2: false,
+
+    })
+  }
+
   showUpdateForm = (item) => {
     this.setState({
       showFlag: true,
@@ -108,6 +121,17 @@ class MyFavoriteBooks extends React.Component {
       status: item.status,
       email: item.email,
       bookId: item._id,
+
+    })
+  }
+  showAddForm = (item) => {
+    this.setState({
+      showFlag2: true,
+      title: item.title,
+      description: item.description,
+      status: item.status,
+      email: item.email,
+      // bookId: item._id,
 
     })
   }
@@ -121,19 +145,19 @@ class MyFavoriteBooks extends React.Component {
       description: event.target.description.value,
       status: event.target.status.value,
       email: email,
-      
+
     }
     axios
-    .put(`${process.env.REACT_APP_BACKENDURL}/updateBook/${this.state.bookId}`, obj)
-    .then(result => {
-      this.setState({
-        bookArray: result.data,
-        showFlag: false,
+      .put(`${process.env.REACT_APP_BACKENDURL}/updateBook/${this.state.bookId}`, obj)
+      .then(result => {
+        this.setState({
+          bookArray: result.data,
+          showFlag: false,
+        })
       })
-    })
-    .catch(error => {
-      console.log(' ERROR in updating book');
-    })
+      .catch(error => {
+        console.log(' ERROR in updating book');
+      })
     console.log(obj);
 
   }
@@ -142,81 +166,50 @@ class MyFavoriteBooks extends React.Component {
   render() {
     return (
       <>
-        <form onSubmit={this.addBook}>
-          <fieldset>
-            <legend>Add Book: </legend>
-            <input type='text' name='title' placeholder='Book Name' />
-            <input type='text' name='description' placeholder='Description' />
-            <input type='text' name='status' placeholder='Status' />
-            <input type='text' name='email' placeholder='Email' />
-            <button type='submit'>Add</button>
 
-          </fieldset>
-        </form>
+        <Card style={{ width: '14rem' }} >
 
-        {/* <Form onSubmit={this.props.addBook}>
-          <fieldset>
-            <Col>
-              <Form.Label>Title of Book</Form.Label>
-              <Form.Control placeholder="First name..." />
-            </Col>
-
-            <Col>
-              <Form.Label>Description</Form.Label>
-
-              <Form.Control placeholder="Last name..." />
-            </Col>
-
-            <Col>
-              <Form.Label>E-mail</Form.Label>
-
-              <Form.Control placeholder="Last name..." />
-            </Col>
-
-            <Col md>
-              <Form.Label>Status</Form.Label>
-              <Form.Select aria-label="Floating label select example">
-                <option>Open this select menu</option>
-                <option value="1">Celestial Book</option>
-                <option value="2">published</option>
-                <option value="3">stopped</option>
-
-
-              </Form.Select>
-
-            </Col>
-
-            <Col>
-            <Button type='submit'>Add</Button>
-            </Col>
-          </fieldset>
-        </Form> */}
-
-
-        {/* <Module /> */}
+          <Card.Img className="addBookCard" variant="top" src="https://cdn.iconscout.com/icon/premium/png-256-thumb/add-books-833908.png" />
+          <Card.Body>
+            <button className="addButton" onClick={() => this.showAddForm(this.state.title)} >Add Book to Collection</button>
+          </Card.Body>
+        </Card>
 
         <p>
           This is a collection of my favorite books
         </p>
 
-        {
-          this.state.bookArray.map(item => {
-            return (
-              <BookData
-                item={item}
-                deleteBook={this.deleteBook}
-                showUpdateForm={this.showUpdateForm}
+        <Row Row xs={1} md={3} className="g-4">
 
-              />
-            )
-          })
-        }
+          {
+            this.state.bookArray.map(item => {
+              return (
+                <BookData
+                  item={item}
+                  deleteBook={this.deleteBook}
+                  showUpdateForm={this.showUpdateForm}
+
+                />
+              )
+            })
+          }
+        </Row>
 
 
         <UpdateForm
           show={this.state.showFlag}
           handleClose={this.handleClose}
           updateBook={this.updateBook}
+          title={this.state.title}
+          description={this.state.description}
+          status={this.state.status}
+          email={this.state.email}
+        />
+
+        <AddForm
+          show2={this.state.showFlag2}
+          handleClose2={this.handleClose2}
+          addBook={this.addBook}
           title={this.state.title}
           description={this.state.description}
           status={this.state.status}

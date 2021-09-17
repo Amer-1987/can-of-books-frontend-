@@ -10,7 +10,7 @@ function LogoutButton() {
   } = useAuth0();
 
   return isAuthenticated && (
-    <Card style={{ width: '18rem' }}>
+    <Card style={{ width: '7rem' }}>
      
       <Card.Body>
         <button onClick={() => {
