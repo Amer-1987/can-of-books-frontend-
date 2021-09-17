@@ -1,0 +1,13 @@
+h1{
+    color: rgb(31, 138, 63);
+}
+h6{
+    color: rgb(15, 198, 223);
+}
+.scroll {
+    margin-left: 0%;
+    width: 100%;
+    max-height: 100px;
+    overflow-y: auto;
+}
+

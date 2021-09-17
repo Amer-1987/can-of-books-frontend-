@@ -1,5 +1,12 @@
-.data{
-    margin: auto;
-    text-align: center;
+.amerData{
+    width: 60%;
+    float: right;
+    margin-left: 10%;
+    
+}
+
+.amerImg{
+    margin-left: 20%;
+
 }
 

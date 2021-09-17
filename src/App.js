@@ -5,7 +5,7 @@ import Footer from './Footer';
 // import IsLoadingAndError from './IsLoadingAndError';
 
 import Profile from './Profile';
-import Module from './Module';
+// import Module from './Module';
 import MyFavoriteBooks from './BestBooks'
 import { withAuth0 } from '@auth0/auth0-react';
 import Login from './Login';
